@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+	<title>Samples</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="./js/newOrder.js"></script> -->
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="jlt.css">
+<!-- <link rel="stylesheet" type="text/css" href="newOrder.css"> -->
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/jlt.js"></script>
+
+
+</head>
+<body>
+	<div class="container">
+		<div id = "header" class="row" style="height: 10%;">
+			header
+		</div>
+	
+	
+		<div class="row" style="height: 90%;">
+			<div id="dock" class="col-sm-2">
+				<ul id="dockList" class="list-group">
+				  <li class="list-group-item" >New Order</li>
+				  <li class="list-group-item">Samples</li>
+				  <li class="list-group-item">Third item</li>
+				</ul>
+			</div>
+			<div id ="centreDiv" style="height: 100%; overflow-y: auto;" class="col-sm-10">
+				
+	
+					<div id = "samplesHeader" class="row" style="height:10%; width:100%; position: fixed; z-index: 10;">
+						<div style="position: relative; height: 100%; width: 20%; float: left;">
+							JLTS
+						</div>
+						<div style="position: relative; height: 100%; width: 40%; float: left;">
+							<input type="text" name="searchJLT" id="searchJLT" placeholder="search JLT, id, color, fabric" onkeyup="searchJLT(event)">
+						</div>
+						<div  style="position: relative; height: 100%; width: 30%; float: left;">
+							<img id="closeIcon" src="./icons/close.png" onclick="closeShowcase();" style="display: none; height: 100%; position: relative;">
+						</div>
+					</div>
+					<div id="samplesDiv" class="row" style="height:auto; position:relative; top: 10%;">
+					</div>
+					<div id="sampleDiv" class="row" style="height:90%; position:relative; top: 10%; display: none;">
+						<!-- <div style="position: relative; width: 100%; height: 10%"></div> -->
+						<div style="position: relative; width: 100%; height: 90%">
+							<div id="" style="position: relative; width: 10%;float: left; height: 100%" onclick="nextPicture(0)">
+								<img src="./icons/left.jpeg" width="100%" style="position:relative; top:35%;">
+							</div>
+							<div id="imagesDiv" style="position: relative; width: 80%;float: left; height: 100%"></div>
+							<div id="" style="position: relative; width: 10%;float: left; height: 100%" onclick="nextPicture(1)">
+								<img src="./icons/right.jpeg"  width="100%" style="position:relative; top:35%;">
+							</div>
+						</div>
+						<div style="position: relative; width: 100%; height: 10%"></div>
+					</div>
+				
+					
+
+					
+					
+			</div>	
+		</div>
+	</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="./js/index.js">	</script>
+<script type="text/javascript">
+	initJLT();
+</script>
+</html>

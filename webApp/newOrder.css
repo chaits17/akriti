@@ -1,0 +1,34 @@
+table{
+	position: relative;
+	width: 100%;
+}
+td{
+	position: relative;
+	width: 16.66%;
+}
+#addItem{
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+
+.jltInput{
+	position: relative;
+	width: 80%;
+	height: 100%;
+	padding: 0px!important;
+
+}
+.jltButton{
+	position: relative;
+	width: 7%;
+	height: 100%;
+	padding: 0px!important;
+
+}
+.jltDiv{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0px!important;
+}

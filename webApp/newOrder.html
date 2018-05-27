@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+	<title>New Order</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/newOrder.js"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="newOrder.css">
+<script type="text/javascript" src="./js/common.js"></script>
+
+
+</head>
+<body>
+	<div class="container">
+		<div id = "header" class="row" style="height: 10%;">
+			header
+		</div>
+	
+	
+		<div class="row" style="height: 80%;">
+			<div id="dock" class="col-sm-2">
+				<ul id="dockList" class="list-group">
+				  <li class="list-group-item">New Order</li>
+				  <li class="list-group-item">Samples</li>
+				  <li class="list-group-item">Third item</li>
+				</ul>
+			</div>
+			<div id ="centreDiv" style="height: 100%" class="col-sm-10">
+				
+					<table id="customerInfo">
+						<tr>
+							<td>Customer Name :</td>
+							<td><div>
+								<textarea  id="customerNameIput" name="customerName" onkeyup="customerNameInitialized('customerNameIput')"></textarea> 
+							</div>
+							</td>
+							<td><button>Update Customer Info</buttton></td>
+							<td><button></button></td>
+							<td><button></button></td>
+							<td><button onclick="showAddCustomerBox();">Add New Customer</button></td>
+							<td></td>
+
+						</tr>
+						
+					</table>
+
+					<div id="addItem">
+						<table id="newItems">
+							<thead style="display: none;">
+								<tr>
+									<td>ID</td>
+									<td>JLT</td>
+									<td>Item</td>
+									<td>color</td>
+									<td>delivery date</td>
+									<td>notes</td>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+						<button onclick="addItem()">Add Item</button>
+						<!-- <img src="https://drive.google.com/file/d/1iJVJTLOnodAM4cO1pNsADwo8-TtGYZ6N/view?usp=sharing"> -->
+					</div>
+					
+			</div>	
+		</div>
+	</div>
+
+<div class="overlay" id="overlayDiv" style="display: none;">
+
+	
+		<div id="newCustDiv"  style="top:15%; position: absolute; height: 70%; width: 80%; left: 10%;">
+			
+		
+	</div>
+
+</div>
+
+<div class="overlay container" id="jltOverlay" style="display: none; background-color: black!important; height: 100%; overflow-y: auto;">
+	
+	<div id = "samplesHeader" class="row" style="height:10%; width:100%; position: fixed; z-index: 10;">
+		<div style="position: relative; height: 100%; width: 20%; float: left;">
+			JLTS
+		</div>
+		<div style="position: relative; height: 100%; width: 40%; float: left;">
+			<input type="text" name="searchJLT" id="searchJLT" placeholder="search JLT, id, color, fabric" onkeyup="searchJLT(event)">
+		</div>
+		<div  style="position: relative; height: 100%; width: 30%; float: left;">
+			<img id="closeIcon" src="./icons/close.png" onclick="closeShowcase();" style="display: none; height: 100%; position: relative;">
+		</div>
+	</div>
+	<div id="samplesDiv" class="row" style="height:auto; position: relative; top: 10%;">
+
+
+</div>
+</div>
+</body>
+<script type="text/javascript" src="./js/index.js">	</script>
+<script type="text/javascript">
+	$(function(){
+      $("#newCustDiv").load("newCustomer.html"); 
+    });
+</script>
+</html>

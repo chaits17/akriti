@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ordermanager-204612",
+  "private_key_id": "34fdc849a9ce8e74e33ed8e839be117b5cbc2a2f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQChj2r+4aKThE5D\nqzThie5PHqnAjgCM1kc7dozLVHxfxSyojXycaGv9aXpWvvlH1T+ioYlDK7sc7lvQ\nwCbuvMQLfgPEjWEhDp4ejcFoDT/Z6QjFdgNUbz+Jmji1/IJl4VEC5LGiqg7KS0Jb\nxVq7JIVKcHRlC5chRu4BYYbZODULeF5vyw2L8NrnVP46Le4ZSvQSWElnzsVFmI+5\ndZ8dj0KTPnz63JU0BjfbvFwWtvajZojyWgfSVT/2w4DLW/ez+smet/s1/XiL7dkS\nFAuOnBfUfB7zh/16aIlljnVY7L4xY+WRTjW9uLdM+Jqlda5irciEfiVVc7u8l8CT\nBTn6We8dAgMBAAECggEAEPq0AazlsN/oeHTSLkXtwBj2juBzBFoyIE4O8VZOv/ib\n/0GSGr9gDMD8yjMbRcZkAAvpaMrRc8fv6a+C0qJkxC8ZPEX+Mu2IsVNamTyTPQFL\nGl2TGgObHN4SybrhBXi5p+Ewc2pbUD1lRaR8gEs6oEkoom9REdPqMvD0rXhFHZBS\ngG+HcBjTcei1KfmpGfcp0grxblFakcgVaLVKNjc30GkmZqbjdNbAvonURL0vGm1t\nil9Ppi/WZMqbpDV7MbKsJxYIWWZEUONQqaCOzj/ztTRX7hzpgia3N90rdIoJn0ry\nUGo7ayzLfU9kVRb3qqOAglwa5DKUwQAPfPjjbKxtzQKBgQDUR9xyFCG/JcIjTI94\n7/vlfm1om73CpPuUHKlr/aQBYjbs5uIYzF+Euu0Tx2lheR6dHK08Nf2xSuXFRY5X\nS4wCn9cgxOfSafcK7pfc8yb/ZnXaH/YrHjVY132du7oTSQio2hfM2O/nAa3WHl36\nAzqJ6OdJ7nN+l5p/sMY+HMloHwKBgQDC1WfkC8bmIftBzuzBUeLk2vqYTDRccdtE\n5yUFg2bDLnEHCPdMQgE05SvM7a7xkQr0ZzFY/cDbbKfo4v2unJ8Ti7AsBYXIW8lH\nZRDZkwRUY14nTFV8z0nGJYKwILd8u5wib9rMDguUY1G+ZuG1bZ4E8NRfeS7pP1LL\nt40It5JxQwKBgHbLPCcu8u+oLqtYVdXE3r8/7/Qha6D4eL0bCQig6V3I25nZXt+n\nxzBc9v0hk+xzPlmHyb4vLKhBlLG/yfc6FMEHN/ljl6Odnx0kBiIkhEdazErjpfvd\nLNdpyCcz/d56+Xici8McB6zLuL9hQQ//LIwupPgvk7xdFJ2ujFIIBAHbAoGAC+gI\nuknx9Lxc42+mzkWXzQ6Iw+fcR0357WMGwyh9ji33YEuu+S0Lb9UVcSeRSlfnyHnJ\n7TtMntwsArJkeFg/7Gzb7kTEITNiwIcvmWw/lnygE1y52K++PWqrauIE9I1uhDg7\nsb6l/IJ5S150KqcxQfIJuG/qavygraxg5Qh63YsCgYAtGAAXAyYxaFhRS8P615hY\n41l0fX740vXY1M7+rT9T/P5GTEnvZs2lGOBWeLK+Nl8C/wKwd+Uf1gA9JMwxVkgA\nqjMFAC9KjvTkrqNIwQ7GKIrky/vGYVgMZ0kNgyu/6oTSieyI/lOKrdwVu/9KYdKv\nz7eSjgdPrLSmFnIjB+FmlA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "akritibridal@ordermanager-204612.iam.gserviceaccount.com",
+  "client_id": "102183963563961627822",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/akritibridal%40ordermanager-204612.iam.gserviceaccount.com"
+}
