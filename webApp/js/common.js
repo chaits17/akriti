@@ -13,6 +13,17 @@ function getEventTarget(e) {
           window.location.href = 'newOrder.html'
         if(target.innerHTML == 'Samples')
           window.location.href = 'jlt.html'
+        if(target.innerHTML == 'Dyeing')
+          window.location.href = 'dyeing.html';
+        if(target.innerHTML == 'Packaging')
+          window.location.href = 'packaging.html'
+        if(target.innerHTML == 'Office')
+          window.location.href = 'office.html'
+        if(target.innerHTML == 'Stitching')
+          window.location.href = 'stitching.html'
+        if(target.innerHTML == 'Fabric')
+          window.location.href = 'fabric.html'
+
     };
         
 });
@@ -144,6 +155,7 @@ autocomplete(document.getElementById(id), customerNames);
 }
 
 function fillCustomerData(name){
+  document.getElementById('addItemButton').disabled = false;
   var table = document.getElementById('customerInfo');
   var selectedCustomer;
   if(document.getElementById('rowSize'))
@@ -267,10 +279,7 @@ function showSample(e){
   }
 
 }
-function selectSample(id){
-  closeShowcase();
-  alert(id);
-}
+
 
   function searchJLT(e){
 

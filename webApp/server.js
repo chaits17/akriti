@@ -3,6 +3,8 @@ const app = express()
 const GoogleSpreadsheet = require('google-spreadsheet');
 const async = require('async');
 const fs = require('fs');
+const each = require('async-each-series');
+
  
 // spreadsheet key is the long id in the sheets URL
 const doc = new GoogleSpreadsheet('1uuqMO6MOIDR0vfaLCEwc-N5tfmhvSy64TEqYRQ5OeoM');
@@ -34,6 +36,193 @@ app.post('/getJLTFiles',function(req,res){
 	fs
 })
 
+app.post('/createOrder',function(req,res){
+  console.log('received createOrder')
+  var order =req.body.sendOrder;
+  order = JSON.parse(order);
+
+
+
+  each(order, function(el, next) {
+    var orderDeets = {
+      'id':el['id'],
+      'customername':el['customername'],
+      'jlt':el['jlt'],
+      'item':el['item']
+    }
+    async.series([
+      function setAuth(step) {
+        var creds = require('./orderManager-34fdc849a9ce.json');
+     
+        doc.useServiceAccountAuth(creds, function(err,info){
+          console.log(info);
+          step(null,'');
+        });
+      },
+      function addingRowsToOrder(step) {
+        // google provides some query options
+        el.orderid =el.id;
+        //add in order
+        doc.addRow(2,el,function(err,row){
+          if(err)
+            console.log('Error: '+err);
+          else
+            step(err,row);
+
+        });
+        // add in dyeing
+        doc.addRow(4,el,function(err,row){
+          if(err)
+            console.log('Error: '+err);
+          //¬else
+            //step(err,row);
+
+        });
+        //add in stitching
+        doc.addRow(8,el,function(err,row){
+          if(err)
+            console.log('Error: '+err);
+          //else
+            //step(err,row);
+
+        });
+      }
+    ], function(err,result){
+        if( err ) {
+          console.log('Error: '+err);
+        }
+        next();
+    });
+
+  }, function (err) {
+    if(err)
+      console.log(err);
+    console.log('finished');
+  });
+
+
+
+});
+
+app.post('/getFabric',function(req,res){
+  console.log('received post for getFabric');
+    async.series([
+    function setAuth(step) {
+      var creds = require('./orderManager-34fdc849a9ce.json');
+   
+      doc.useServiceAccountAuth(creds, function(err,info){
+        console.log(info);
+        step(null,'');
+      });
+    },
+    function getInfoAndWorksheets(step) {
+      doc.getInfo(function(err, info) {
+        console.log('Loaded doc: '+info.title+' by '+info.author.email);
+        sheet = info.worksheets[6];
+        console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
+        step(null,'');
+      });
+    },
+    function workingWithRows(step) {
+      // google provides some query options
+      sheet.getRows({
+        offset: 1,
+        orderby: 'col2'
+      }, function( err, rows ){
+
+   
+        step(null,rows);
+      });
+    }
+  ], function(err,result){
+      if( err ) {
+        console.log('Error: '+err);
+        
+      }
+      res.send(result[2]);
+  });
+})
+
+
+
+app.post('/getDyeing',function(req,res){
+  console.log('received post for getDyeing');
+    async.series([
+    function setAuth(step) {
+      var creds = require('./orderManager-34fdc849a9ce.json');
+   
+      doc.useServiceAccountAuth(creds, function(err,info){
+        console.log(info);
+        step(null,'');
+      });
+    },
+    function getInfoAndWorksheets(step) {
+      doc.getInfo(function(err, info) {
+        console.log('Loaded doc: '+info.title+' by '+info.author.email);
+        sheet = info.worksheets[3];
+        console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
+        step(null,'');
+      });
+    },
+    function workingWithRows(step) {
+      // google provides some query options
+      sheet.getRows({
+        offset: 1,
+        orderby: 'col2'
+      }, function( err, rows ){
+
+   
+        step(null,rows);
+      });
+    }
+  ], function(err,result){
+      if( err ) {
+        console.log('Error: '+err);
+        
+      }
+      res.send(result[2]);
+  });
+})
+
+app.post('/getOrders',function(req,res){
+  console.log('received post for getOrders');
+    async.series([
+    function setAuth(step) {
+      var creds = require('./orderManager-34fdc849a9ce.json');
+   
+      doc.useServiceAccountAuth(creds, function(err,info){
+        console.log(info);
+        step(null,'');
+      });
+    },
+    function getInfoAndWorksheets(step) {
+      doc.getInfo(function(err, info) {
+        console.log('Loaded doc: '+info.title+' by '+info.author.email);
+        sheet = info.worksheets[1];
+        console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
+        step(null,'');
+      });
+    },
+    function workingWithRows(step) {
+      // google provides some query options
+      sheet.getRows({
+        offset: 1,
+        orderby: 'col2'
+      }, function( err, rows ){
+
+   
+        step(null,rows);
+      });
+    }
+  ], function(err,result){
+      if( err ) {
+        console.log('Error: '+err);
+        
+      }
+      res.send(result[2]);
+  });
+})
+
 
 app.post('/getCustomers',function(req,res){
 	console.log('recieved post for getCustomers')
@@ -49,7 +238,7 @@ app.post('/getCustomers',function(req,res){
   function getInfoAndWorksheets(step) {
     doc.getInfo(function(err, info) {
       console.log('Loaded doc: '+info.title+' by '+info.author.email);
-      sheet = info.worksheets[2];
+      sheet = info.worksheets[0];
       console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
       step(null,'');
     });
@@ -89,7 +278,7 @@ app.post('/getJLT',function(req,res){
   function getInfoAndWorksheets(step) {
     doc.getInfo(function(err, info) {
       console.log('Loaded doc: '+info.title+' by '+info.author.email);
-      sheet = info.worksheets[8];
+      sheet = info.worksheets[5];
       console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
       step(null,'');
     });
@@ -119,93 +308,93 @@ app.post('/getJLT',function(req,res){
 
 
 
-async.series([
-  function setAuth(step) {
-    // see notes below for authentication instructions!
-    var creds = require('./orderManager-34fdc849a9ce.json');
-    doc.useServiceAccountAuth(creds, function(err,info){
-    	console.log(info);
-    	step();
-    });
-  },
-  function getInfoAndWorksheets(step) {
-    doc.getInfo(function(err, info) {
-      console.log('Loaded doc: '+info.title+' by '+info.author.email);
-      sheet = info.worksheets[0];
-      console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
-      step();
-    });
-  },
-  function workingWithRows(step) {
-    // google provides some query options
-    sheet.getRows({
-      offset: 1,
-      limit: 20,
-      orderby: 'col2'
-    }, function( err, rows ){
-      console.log('Read '+rows.length+' rows');
+// async.series([
+//   function setAuth(step) {
+//     // see notes below for authentication instructions!
+//     var creds = require('./orderManager-34fdc849a9ce.json');
+//     doc.useServiceAccountAuth(creds, function(err,info){
+//     	console.log(info);
+//     	step();
+//     });
+//   },
+//   function getInfoAndWorksheets(step) {
+//     doc.getInfo(function(err, info) {
+//       console.log('Loaded doc: '+info.title+' by '+info.author.email);
+//       sheet = info.worksheets[0];
+//       console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
+//       step();
+//     });
+//   },
+//   function workingWithRows(step) {
+//     // google provides some query options
+//     sheet.getRows({
+//       offset: 1,
+//       limit: 20,
+//       orderby: 'col2'
+//     }, function( err, rows ){
+//       console.log('Read '+rows.length+' rows');
  
-      // the row is an object with keys set by the column headers
-      rows[0].colname = 'new val';
-      rows[0].save(); // this is async
+//       // the row is an object with keys set by the column headers
+//       rows[0].colname = 'new val';
+//       rows[0].save(); // this is async
  
-      // deleting a row
-      //rows[0].del();  // this is async
+//       // deleting a row
+//       //rows[0].del();  // this is async
  
-      step();
-    });
-  },
-  function workingWithCells(step) {
-    sheet.getCells({
-      'min-row': 1,
-      'max-row': 5,
-      'return-empty': true
-    }, function(err, cells) {
-      var cell = cells[0];
-      console.log('Cell R'+cell.row+'C'+cell.col+' = '+cell.value);
+//       step();
+//     });
+//   },
+//   function workingWithCells(step) {
+//     sheet.getCells({
+//       'min-row': 1,
+//       'max-row': 5,
+//       'return-empty': true
+//     }, function(err, cells) {
+//       var cell = cells[0];
+//       console.log('Cell R'+cell.row+'C'+cell.col+' = '+cell.value);
  
-      // cells have a value, numericValue, and formula
-      cell.value == '1'
-      cell.numericValue == 1;
-      cell.formula == '=ROW()';
+//       // cells have a value, numericValue, and formula
+//       cell.value == '1'
+//       cell.numericValue == 1;
+//       cell.formula == '=ROW()';
  
-      // updating `value` is "smart" and generally handles things for you
-      cell.value = 123;
-      cell.value = '=A1+B2'
-      cell.save(); //async
+//       // updating `value` is "smart" and generally handles things for you
+//       cell.value = 123;
+//       cell.value = '=A1+B2'
+//       cell.save(); //async
  
-      // bulk updates make it easy to update many cells at once
-      cells[0].value = 1;
-      cells[1].value = 2;
-      cells[2].formula = '=A1+B1';
-      sheet.bulkUpdateCells(cells); //async
+//       // bulk updates make it easy to update many cells at once
+//       cells[0].value = 1;
+//       cells[1].value = 2;
+//       cells[2].formula = '=A1+B1';
+//       sheet.bulkUpdateCells(cells); //async
  
-      step();
-    });
-  },
-  function managingSheets(step) {
-  	console.log('inside managingSheets')
-   //  doc.addWorksheet({
-   //    title: 'my new sheet'
-   //  }, function(err, sheet) {
+//       step();
+//     });
+//   },
+//   function managingSheets(step) {
+//   	console.log('inside managingSheets')
+//    //  doc.addWorksheet({
+//    //    title: 'my new sheet'
+//    //  }, function(err, sheet) {
  
- 		// console.log('error on addWorksheet ' + err)
-   //    // change a sheet's title
-   //    sheet.setTitle('new title'); //async
+//  		// console.log('error on addWorksheet ' + err)
+//    //    // change a sheet's title
+//    //    sheet.setTitle('new title'); //async
  
-   //    //resize a sheet
-   //    sheet.resize({rowCount: 50, colCount: 20}); //async
+//    //    //resize a sheet
+//    //    sheet.resize({rowCount: 50, colCount: 20}); //async
  
-   //    sheet.setHeaderRow(['name', 'age', 'phone']); //async
+//    //    sheet.setHeaderRow(['name', 'age', 'phone']); //async
  
-   //    // removing a worksheet
-   //    //sheet.del(); //async
+//    //    // removing a worksheet
+//    //    //sheet.del(); //async
  
-      step();
-    // });
-  }
-], function(err){
-    if( err ) {
-      console.log('Error: '+err);
-    }
-});
+//       step();
+//     // });
+//   }
+// ], function(err){
+//     if( err ) {
+//       console.log('Error: '+err);
+//     }
+// });

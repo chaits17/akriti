@@ -8,11 +8,13 @@ function showAddCustomerBox(){
 var itemCount = 0;
 
 function addItem(){
+	document.getElementById('saveOrderButton').style.display = '';
 	itemCount++;
 	var itemTable  =document.getElementById('newItems');
 	var header = itemTable.getElementsByTagName('thead')[0];
 	header.style.display='';
-	var item = itemTable.insertRow();
+	var body = itemTable.tBodies[0];
+	var item = body.insertRow();	
 
 	// item.insertCel
 	var cell = item.insertCell();
@@ -28,7 +30,7 @@ function addItem(){
 	JLTinput.name = 'JLT';
 	JLTdiv.append(JLTinput);
 	var viewJlt = document.createElement('button');
-	viewJlt.setAttribute('onclick',"showJLT()")
+	viewJlt.setAttribute('onclick',"showJLT(event)")
 	JLTdiv.append(viewJlt);
 	JLTdiv.classList.add("jltDiv");
 	viewJlt.classList.add("jltButton");
@@ -37,11 +39,30 @@ function addItem(){
 	img.height = 20;
 	viewJlt.append(img)
 	JLTinput.classList.add("jltInput");
-
 	cell.append(JLTdiv);
 	autocomplete(JLTinput,jltNames);
-	
 
+	cell = item.insertCell();
+	var itemInput = document.createElement('input');
+	itemInput.name = 'item';
+	cell.append(itemInput);
+
+	cell = item.insertCell();
+	var colorInput = document.createElement('input');
+	colorInput.name = 'color';
+	cell.append(colorInput);
+
+	cell = item.insertCell();
+	var dateInput = document.createElement('input');
+	dateInput.name = 'deliveryDate';
+	dateInput.type = 'date';
+	cell.append(dateInput);	
+	
+	cell = item.insertCell();
+	var notesInput = document.createElement('input');
+	notesInput.name = 'notes';
+	notesInput.type = 'text';
+	cell.append(notesInput);	
 
 
 
@@ -50,14 +71,52 @@ function addItem(){
 var jlt = [];
 var jltNames = [];
 
-function showJLT()
+function saveOrder(){
+	var itemTable  =document.getElementById('newItems');
+	var body = itemTable.tBodies[0];
+	var currentCustomer = JSON.parse(localStorage.selectedCustomer);
+
+	var items = body.rows;
+	var order = [];
+	
+	var cells;
+	for (var i = 0; i< items.length; i++) {
+		cells = items[i].cells;
+		var orderObj = {};
+		orderObj['id'] = cells[0].innerHTML;
+		orderObj['customername'] = currentCustomer.name;
+		orderObj['jlt'] = cells[1].getElementsByTagName('input')[0].value;
+		orderObj['item'] = cells[2].getElementsByTagName('input')[0].value;
+		orderObj['color'] = cells[3].getElementsByTagName('input')[0].value;
+		orderObj['deliverydate'] = cells[4].getElementsByTagName('input')[0].value;
+		orderObj['notes'] = cells[5].getElementsByTagName('input')[0].value;
+		order.push(orderObj)
+	}
+	var sendOrder = JSON.stringify(order);
+	$.post("createOrder",{sendOrder}, function(data){
+
+	});
+}
+
+function showJLT(e)
 {
+	localStorage.currentRow = e.target.parentElement.parentElement.parentElement.parentElement.id;
 	document.getElementById('jltOverlay').style.display = '';
 	document.getElementById('samplesDiv').style.display = '';
     document.getElementById('closeIcon').style.display = '';
 	// $("#jltOverlay").load("jlt.html"); 
 	initJLT();
 
+}
+function selectSample(id){
+  closeShowcase();
+   var input = document.getElementById(localStorage.currentRow).getElementsByTagName('input');
+   for (var i = input.length - 1; i >= 0; i--) {
+   	if(input[i].name == 'JLT')
+   	{
+   		input[i].value = id;
+   	}
+   }
 }
 
 fetchJlt();
